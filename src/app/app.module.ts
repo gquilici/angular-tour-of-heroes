@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { MessagesComponent } from './messages/messages.component';
 import { HeroService } from './hero.service';
 import { MessageService } from './message.service';
@@ -20,6 +21,7 @@ import { InMemoryDataService } from './in-memory-data.service';
     DashboardComponent,
     HeroesComponent,
     HeroDetailComponent,
+    HeroSearchComponent,
     MessagesComponent
   ],
   imports: [
