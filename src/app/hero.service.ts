@@ -24,7 +24,7 @@ export class HeroService {
   getHeroes (): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl).pipe(
       tap(heroes => this.log(`heroes list successfully fetched`)),
-      catchError(this.handleError('getHeroes', []))
+      catchError(this.handleError(`getHeroes()`, []))
     );
   }
 
@@ -37,11 +37,29 @@ export class HeroService {
     );
   }
 
+  /** POST: add a new hero to the server */
+  addHero (hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
+      tap((h: Hero) => this.log(`hero with id <${h.id}> successfully created`)),
+      catchError(this.handleError<Hero>(`addHero(hero: ${hero})`))
+    );
+  }
+
   /** PUT: update the hero on the server */
   updateHero (hero: Hero): Observable<any> {
     return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
       tap(_ => this.log(`hero with id <${hero.id}> successfully updated`)),
-      catchError(this.handleError<any>('updateHero'))
+      catchError(this.handleError<any>(`updateHero(hero: ${hero})`))
+    );
+  }
+
+  /** DELETE: delete the hero from the server */
+  deleteHero (hero: Hero | number): Observable<Hero> {
+    const id = typeof hero === 'number' ? hero : hero.id;
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.delete<Hero>(url, httpOptions).pipe(
+      tap(_ => this.log(`hero with id <${id}> successfully deleted`)),
+      catchError(this.handleError<Hero>(`deleteHero(id: ${id})`))
     );
   }
 
